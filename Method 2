@@ -1,0 +1,48 @@
+#include <stdio.h> 
+#include <math.h>
+int getSum(int num){
+    
+    int sum = 0;
+    
+    for(int i = 1; i < sqrt(num); i++)
+    {
+        if (num % i == 0)
+        {
+            // For num : (1, num) will always be pair of divisor
+            // acc to def., we must ignore adding num itself as divisor
+            // when calculating for abundant number
+            if(i == 1)
+                sum = sum + i;
+            
+            // Example For 100 (10,10) will be one of the pair
+            // But, we should add value 10 to the sum just once
+            else if(i == num/i)
+                sum = sum + i;
+            
+            // add both pairs as divisors
+            // For any divisor i, num/i will also be a divisor
+            else
+                sum = sum + i + num/i;
+        }
+    }
+    return sum;
+}
+
+//main Program
+int main()
+{
+    int num=10;
+    
+  
+    
+    int sum = getSum(num);
+    if(sum > num)
+    {
+        printf("%d is an Abundant Number\n",num);
+        printf("Num: %d\nSum: %d\nAbundance: %d", num, sum, (sum-num));
+    }
+    else
+        printf("%d is not a Abundant Number",num);
+}
+// Time Complexity: O(√N)
+// Space Complexity: O(1)
